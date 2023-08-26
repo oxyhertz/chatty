@@ -1,7 +1,8 @@
 import { initializeApp } from 'firebase/app'
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
-import { collection, doc, getDocs, getFirestore, onSnapshot, query, setDoc, where } from 'firebase/firestore'
+import { arrayUnion, collection, doc, getDocs, getFirestore, onSnapshot, query, setDoc, where, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
+import { v4 as uuid } from 'uuid'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBwjZHFtcreNoCbxayQrb9fOhB38J8AiNI',
@@ -85,5 +86,89 @@ export async function getUserConversations(userId) {
         reject(error)
       }
     )
+  })
+}
+
+export function getConvMsgs(chatId, callback) {
+  return onSnapshot(
+    doc(db, 'conversations', chatId),
+    (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        callback(docSnapshot.data())
+      }
+    },
+    (error) => {
+      console.error('Error fetching conversation:', error)
+    }
+  )
+}
+// export async function getConvMsgs(chatId) {
+//   console.log('🚀 ~ file: firebase.js:92 ~ getConvMsgs ~ chatId:', chatId)
+//   return new Promise((resolve, reject) => {
+//     const unsub = onSnapshot(
+//       doc(db, 'conversations', chatId),
+//       (docSnapshot) => {
+//         if (docSnapshot.exists()) {
+//           const data = docSnapshot.data()
+//           resolve({ data, unsub })
+//         } else {
+//           reject(new Error('No conversation found'))
+//         }
+//         // unsub() // unsubscribe from the listener once we've got the data
+//       },
+//       (error) => {
+//         reject(error)
+//       }
+//     )
+//   })
+// }
+
+export async function sendMsg(text, loggedInUser, chatId, img, toUser) {
+  if (img) {
+    const storageRef = ref(storage, uuid())
+
+    const uploadTask = uploadBytesResumable(storageRef, img)
+
+    uploadTask.on(
+      (error) => {
+        //TODO:Handle Error
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          await updateDoc(doc(db, 'conversations', chatId), {
+            messages: arrayUnion({
+              id: uuid(),
+              text,
+              senderId: loggedInUser.uid,
+              date: Timestamp.now(),
+              img: downloadURL,
+            }),
+          })
+        })
+      }
+    )
+  } else {
+    await updateDoc(doc(db, 'conversations', chatId), {
+      messages: arrayUnion({
+        id: uuid(),
+        text,
+        senderId: loggedInUser.uid,
+        date: Timestamp.now(),
+      }),
+    })
+  }
+
+  await updateDoc(doc(db, 'userConversations', loggedInUser.uid), {
+    [chatId + '.lastMessage']: {
+      text,
+    },
+    [chatId + '.date']: serverTimestamp(),
+  })
+
+  return await updateDoc(doc(db, 'userConversations', toUser.uid), {
+    [chatId + '.lastMessage']: {
+      text,
+    },
+    [chatId + '.date']: serverTimestamp(),
   })
 }
