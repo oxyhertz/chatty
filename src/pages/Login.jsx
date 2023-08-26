@@ -1,5 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { login } from '../services/firebase.js'
 
 export const Login = () => {
-  return <div>Login</div>
+  const [err, setErr] = useState(false)
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const email = e.target[0].value
+    const password = e.target[1].value
+
+    try {
+      await login(email, password)
+      navigate('/')
+    } catch (err) {
+      console.log('🚀 ~ file: Login.jsx:18 ~ handleSubmit ~ err:', err)
+      setErr(true)
+    }
+  }
+  return (
+    <div className="">
+      <div className="">
+        <span className="">Chatty Chat</span>
+        <span className="">Login</span>
+        <form onSubmit={handleSubmit}>
+          <input type="email" placeholder="email" />
+          <input type="password" placeholder="password" />
+          <button>Sign in</button>
+          {err && <span>Something went wrong</span>}
+        </form>
+        <p>
+          You don't have an account? <Link to="/register">Register</Link>
+        </p>
+      </div>
+    </div>
+  )
 }
