@@ -4,6 +4,7 @@ import { Search } from './Search'
 import { AuthContext } from '../context/AuthContext'
 import { getUserConversations } from '../services/firebase'
 import { ConversationList } from './ConversationList'
+import { FavoriteConvs } from './FavoriteConvs'
 export const Conversations = () => {
   const [convs, setConvs] = useState([])
   const { loggedInUser } = useContext(AuthContext)
@@ -25,6 +26,7 @@ export const Conversations = () => {
   return (
     <section className="conversations-container">
       <CurrentUser />
+      <FavoriteConvs />
       <Search />
       <ConversationList convs={convs} />
     </section>

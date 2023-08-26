@@ -2,6 +2,12 @@
   display: flex;
   background-color: #fff;
   width: 80%;
-  height: 50%;
+  min-height: 900px;
   border-radius: 18px;
+  box-shadow: 0 8px 16px rgb(98 95 95 / 8%);
+  h2,
+  h3 {
+    color: $header-color;
+    font-weight: 600;
+  }
 }

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { collection, query, where, getDocs, setDoc, doc, updateDoc, serverTimestamp, getDoc } from 'firebase/firestore'
 import { db, getUserByName } from '../services/firebase'
 import { AuthContext } from '../context/AuthContext'
+import { SearchIcon } from '@heroicons/react/outline'
 export const Search = () => {
   const [username, setUsername] = useState('')
   const [user, setSearchedUser] = useState(null)
@@ -61,7 +62,8 @@ export const Search = () => {
   }
   return (
     <div className="search">
-      <div className="searchForm">
+      <div className="inp-container">
+        <SearchIcon />
         <input type="text" placeholder="Find a user" onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)} value={username} />
       </div>
       {err && <span>User not found!</span>}

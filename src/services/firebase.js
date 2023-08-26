@@ -111,7 +111,7 @@ export function getConvMsgs(chatId, callback) {
     doc(db, 'conversations', chatId),
     (docSnapshot) => {
       if (docSnapshot.exists()) {
-        callback(docSnapshot.data())
+        callback(docSnapshot.data().messages)
       }
     },
     (error) => {

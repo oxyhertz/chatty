@@ -7,6 +7,9 @@
   gap: 20px;
   padding: $conversation-padding;
 
+  h2 {
+    text-transform: capitalize;
+  }
   .img-wrapper {
     position: relative;
   }
@@ -38,4 +41,130 @@
   }
 
   border-bottom: 1px solid $border-color;
+}
+
+.favorite-convs {
+  padding: $conversation-padding;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    margin-block-end: 30px;
+    h2 {
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+    span {
+      color: $primary-blue;
+      font-weight: 500;
+    }
+  }
+  .contact-avatars {
+    display: flex;
+    gap: 20px;
+    .img-wrapper {
+      position: relative;
+      svg {
+        width: 15px;
+        height: 15px;
+        color: rgb(233, 144, 159);
+        position: absolute;
+        bottom: 4px;
+        right: -2px;
+      }
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+      transition: box-shadow, opacity 0.3s ease;
+      &:hover {
+        opacity: 0.9;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+.search {
+  .inp-container {
+    position: relative;
+    padding: $conversation-padding;
+    padding-block-start: 0;
+
+    svg {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      top: 9px;
+      left: 35px;
+      color: #dededf;
+    }
+    input {
+      width: 100%;
+      padding: 13px 5px 13px 40px;
+      border-radius: 9px;
+      border: 0;
+    }
+  }
+}
+
+.conv-list {
+  padding: 0 30px;
+}
+.conv-preview {
+  display: flex;
+  gap: 20px;
+  padding: 15px 30px 15px;
+  border-radius: 9px;
+  cursor: pointer;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &:hover {
+    background-color: #fff;
+  }
+  .user-inf {
+    text-transform: capitalize;
+    width: 100%;
+    position: relative;
+    .user-name {
+      padding-block-end: 10px;
+    }
+    .conv-activity {
+      color: #dfdfe0;
+      display: flex;
+      justify-content: space-between;
+      .msg-count {
+        color: #fff;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        background-color: $primary-blue;
+        font-size: 12px;
+        right: 0;
+        top: 15px;
+        position: absolute;
+      }
+      svg {
+        height: 14px;
+        width: 14px;
+      }
+
+      .activity {
+        gap: 5px;
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+    h4 {
+      font-weight: 600;
+      color: #302a54;
+    }
+  }
 }
