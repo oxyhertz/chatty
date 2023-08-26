@@ -1,5 +1,5 @@
 import React from 'react'
-
-export const MessagesList = () => {
-  return <div>MessagesList</div>
+import { MessagePreview } from './MessagePreview'
+export const MessagesList = ({ messages }) => {
+  return <div>{messages?.messages?.length ? messages.messages.map((msg) => <MessagePreview msg={msg} key={msg.id} />) : ''}</div>
 }
