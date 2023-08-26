@@ -5,10 +5,10 @@ import { Register } from './pages/Register'
 import { useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
 function App() {
-  const { currentUser } = useContext(AuthContext)
+  const { loggedInUser } = useContext(AuthContext)
 
   const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
+    if (!loggedInUser) {
       return <Navigate to="/login" />
     }
 

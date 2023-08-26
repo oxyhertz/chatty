@@ -69,25 +69,42 @@ export async function login(email, password) {
   return await signInWithEmailAndPassword(auth, email, password)
 }
 
-export async function getUserConversations(userId) {
-  return new Promise((resolve, reject) => {
-    const unsub = onSnapshot(
-      doc(db, 'userConversations', userId),
-      (docSnapshot) => {
-        if (docSnapshot.exists()) {
-          const data = Object.entries(docSnapshot.data()).map((conv) => ({ convId: conv[0], ...conv[1] }))
-          resolve({ data, unsub })
-        } else {
-          reject(new Error('No user data found'))
-        }
-        // unsub() // unsubscribe from the listener once we've got the data
-      },
-      (error) => {
-        reject(error)
+export function getUserConversations(userId, callback) {
+  return onSnapshot(
+    doc(db, 'userConversations', userId),
+    (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = Object.entries(docSnapshot.data()).map((conv) => ({ convId: conv[0], ...conv[1] }))
+        callback(data)
+      } else {
+        console.error('No user data found')
       }
-    )
-  })
+    },
+    (error) => {
+      console.error('Error fetching user conversations:', error)
+    }
+  )
 }
+
+// export async function getUserConversations(userId) {
+//   return new Promise((resolve, reject) => {
+//     const unsub = onSnapshot(
+//       doc(db, 'userConversations', userId),
+//       (docSnapshot) => {
+//         if (docSnapshot.exists()) {
+//           const data = Object.entries(docSnapshot.data()).map((conv) => ({ convId: conv[0], ...conv[1] }))
+//           resolve({ data, unsub })
+//         } else {
+//           reject(new Error('No user data found'))
+//         }
+//         // unsub() // unsubscribe from the listener once we've got the data
+//       },
+//       (error) => {
+//         reject(error)
+//       }
+//     )
+//   })
+// }
 
 export function getConvMsgs(chatId, callback) {
   return onSnapshot(
