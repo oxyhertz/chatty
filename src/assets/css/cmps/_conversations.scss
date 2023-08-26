@@ -1,0 +1,41 @@
+.conversations-container {
+  background-color: $converstation-backgorund;
+}
+
+.current-user-info {
+  display: flex;
+  gap: 20px;
+  padding: $conversation-padding;
+
+  .img-wrapper {
+    position: relative;
+  }
+  .rounded-cut-img {
+    width: 68px;
+    height: 68px;
+    background-color: $primary-blue;
+    border-radius: 50%;
+    // clip-path: polygon(0% 0%, 100% 0%, 100% 25%, /* Start cutout from here (25% from the top in this example) */ 75% 25%, /* Control the start angle of cutout */ 75% 75%, /* Control the end angle of cutout */ 100% 75%, /* End cutout to here (75% from the top in this example) */ 100% 100%, 0% 100%);
+    // clip-path: polygon(0% 25%, /* Start of cutout from the left */ 25% 0%, /* Cut upward to 25% from the top */ 75% 0%, /* Continue cutout from here */ 100% 25%, /* Move rightwards */ 100% 100%, /* Continue downwards */ 0% 100%, /* Continue leftwards */ 0% 25% /* Back to the start of cutout */);
+  }
+  img {
+    border-radius: 50%;
+    border: 4px solid $converstation-backgorund;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+  }
+  .user-info {
+    h2 {
+      color: $header-color;
+    }
+    span {
+      color: #dcdcdf;
+      font-size: 12px;
+    }
+  }
+
+  border-bottom: 1px solid $border-color;
+}

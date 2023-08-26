@@ -11,7 +11,9 @@
 @import 'basics/animations';
 
 // Componenets
-@import 'cmps/nav';
+@import 'cmps/main-nav';
+@import 'cmps/logo';
+@import 'cmps/conversations';
 
 // Pages
 @import 'pages/home';
