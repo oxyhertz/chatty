@@ -1,14 +1,16 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 export const CurrentUser = () => {
+  const { loggedInUser } = useContext(AuthContext)
+  const { photoURL, displayName } = loggedInUser
   return (
     <div className="current-user-info">
       <div className="img-wrapper">
         <div className="rounded-cut-img flex-center"></div>
-        <img src="https://xsgames.co/randomusers/avatar.php?g=female" />
+        <img src={photoURL} />
       </div>
       <div className="user-info">
-        <h2>Rohmad Khoir</h2>
+        <h2>{displayName}</h2>
         <span>My Account</span>
       </div>
     </div>
