@@ -10,8 +10,8 @@ export const Chat = () => {
     let unsub
 
     if (data.chatId) {
-      unsub = getConvMsgs(data.chatId, (newData) => {
-        setMessages(newData)
+      unsub = getConvMsgs(data.chatId, (msgs) => {
+        setMessages(msgs)
       })
     }
 

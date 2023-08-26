@@ -1,0 +1,20 @@
+.msg-list {
+  display: flex;
+  flex-direction: column;
+
+  .msg-preview {
+    background-color: #f6f5f8;
+    margin-bottom: 1em;
+    padding: 10px 20px;
+    max-width: max-content;
+    border-radius: 0px 20px 20px 20px;
+    display: flex;
+  }
+
+  .to-user-msg {
+    align-self: flex-end;
+    border-radius: 20px 0px 20px 20px;
+    background-color: $primary-blue;
+    color: white;
+  }
+}
