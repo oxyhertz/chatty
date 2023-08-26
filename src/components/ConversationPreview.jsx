@@ -1,5 +1,9 @@
 import React from 'react'
 
-export const ConversationPreview = () => {
-  return <div>ConversationPreview</div>
+export const ConversationPreview = ({ conv }) => {
+  return (
+    <div>
+      <pre>{JSON.stringify(conv)}</pre>
+    </div>
+  )
 }
