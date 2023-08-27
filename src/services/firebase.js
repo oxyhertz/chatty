@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
-import { arrayUnion, collection, doc, getDocs, getFirestore, onSnapshot, query, setDoc, where, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
+import { arrayUnion, collection, doc, getDocs, getFirestore, onSnapshot, query, setDoc, where, serverTimestamp, Timestamp, updateDoc, getDoc } from 'firebase/firestore'
 import { v4 as uuid } from 'uuid'
 
 const firebaseConfig = {
@@ -188,4 +188,37 @@ export async function sendMsg(text, loggedInUser, chatId, img, toUser) {
     },
     [chatId + '.date']: serverTimestamp(),
   })
+}
+
+export async function addConv(combinedId, loggedInUser, toUser) {
+  try {
+    const res = await getDoc(doc(db, 'conversations', combinedId))
+
+    if (!res.exists()) {
+      //create a chat in chats collection
+      await setDoc(doc(db, 'conversations', combinedId), { messages: [] })
+
+      //create user chats
+      await updateDoc(doc(db, 'userConversations', loggedInUser.uid), {
+        [combinedId + '.userInfo']: {
+          uid: toUser.uid,
+          displayName: toUser.displayName,
+          photoURL: toUser.photoURL,
+        },
+        [combinedId + '.date']: serverTimestamp(),
+      })
+
+      await updateDoc(doc(db, 'userConversations', toUser.uid), {
+        [combinedId + '.userInfo']: {
+          uid: loggedInUser.uid,
+          displayName: loggedInUser.displayName,
+          photoURL: loggedInUser.photoURL,
+        },
+        [combinedId + '.date']: serverTimestamp(),
+      })
+    }
+    return res
+  } catch (err) {
+    throw err
+  }
 }
