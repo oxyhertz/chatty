@@ -9,8 +9,8 @@ export const SendMsgInput = () => {
   const { data } = useContext(ChatContext)
 
   const hanldeSendMsg = async () => {
-    await sendMsg(text, loggedInUser, data.chatId, img, data.user)
     setText('')
+    await sendMsg(text, loggedInUser, data.chatId, img, data.user)
     setImg(null)
   }
 
