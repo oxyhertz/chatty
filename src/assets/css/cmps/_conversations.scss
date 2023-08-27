@@ -88,9 +88,25 @@
 }
 
 .search {
+  .searched-user {
+    margin: 0 30px;
+    background: #fff;
+    border-radius: 9px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 15px 30px;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.75;
+    }
+  }
   .inp-container {
     position: relative;
-    padding: $conversation-padding;
+    padding: 40px 30px 20px;
     padding-block-start: 0;
 
     svg {
@@ -106,17 +122,23 @@
       padding: 13px 5px 13px 40px;
       border-radius: 9px;
       border: 0;
+      transition: box-shadow 0.1s;
+
+      &:focus-within {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+      }
     }
   }
 }
 
 .conv-list {
   padding: 0 30px;
+  margin-block-start: 10px;
 }
 .conv-preview {
   display: flex;
   gap: 20px;
-  padding: 15px 30px 15px;
+  padding: 15px 10px;
   border-radius: 9px;
   cursor: pointer;
   img {

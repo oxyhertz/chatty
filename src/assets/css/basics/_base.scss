@@ -55,6 +55,10 @@ input {
   text-align: inherit;
 }
 
+input:focus-visible {
+  outline: none;
+}
+
 // MAC like scrollbar
 ::-webkit-scrollbar {
   width: 8px;
