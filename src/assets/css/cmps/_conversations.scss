@@ -5,7 +5,7 @@
 .current-user-info {
   display: flex;
   gap: 20px;
-  padding: $conversation-padding;
+  padding: 20px 30px;
 
   h2 {
     text-transform: capitalize;
@@ -152,7 +152,7 @@
   }
   .user-inf {
     text-transform: capitalize;
-    width: 100%;
+    flex: 1;
     position: relative;
     .user-name {
       padding-block-end: 10px;
