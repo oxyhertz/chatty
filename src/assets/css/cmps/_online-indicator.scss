@@ -1,0 +1,19 @@
+.online-indicator {
+  position: absolute;
+  top: 35px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #71d099;
+  border: 2px solid #fafafe;
+  // box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+  &.offline {
+    background-color: #fafafe;
+    box-shadow: 0 0 0 2px #cecece;
+    width: 12px;
+    height: 12px;
+  }
+}
