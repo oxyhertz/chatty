@@ -3,6 +3,7 @@ import { MessagesList } from './MessagesList'
 import { ChatContext } from '../context/ChatContext'
 import { getConvMsgs } from '../services/firebase'
 import { SendMsgInput } from './SendMsgInput'
+import { ChatHeader } from './ChatHeader'
 export const Chat = () => {
   const [messages, setMessages] = useState([])
   const { data } = useContext(ChatContext)
@@ -22,7 +23,7 @@ export const Chat = () => {
 
   return (
     <section className="chat-container">
-      <header className="chat-header"></header>
+      <ChatHeader convUser={data.user} />
       <MessagesList messages={messages} />
       <SendMsgInput />
     </section>
