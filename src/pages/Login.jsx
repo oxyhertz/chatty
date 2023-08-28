@@ -15,7 +15,6 @@ export const Login = () => {
       await login(email, password)
       navigate('/')
     } catch (err) {
-      console.log('🚀 ~ file: Login.jsx:18 ~ handleSubmit ~ err:', err)
       setErr(true)
     }
   }
