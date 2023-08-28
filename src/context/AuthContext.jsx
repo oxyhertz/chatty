@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
-import { auth } from '../services/firebase.js'
+import { auth, updateUserPresence } from '../services/firebase.js'
 import { onAuthStateChanged } from 'firebase/auth'
 
 export const AuthContext = createContext()
@@ -9,7 +9,9 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
+      console.log('holla')
       setloggedInUser(user)
+      updateUserPresence(user.uid, true)
     })
 
     return () => {
