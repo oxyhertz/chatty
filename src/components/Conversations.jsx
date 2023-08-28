@@ -44,7 +44,9 @@ export const Conversations = () => {
               }
 
               if (conv.userInfo.uid === data.user.uid) {
-                dispatch({ type: 'CHANGE_USER', payload: conv.userInfo })
+                console.log('hollla')
+                const idx = convs.findIndex((conv) => conv.userInfo.uid === data.user.uid)
+                dispatch({ type: 'CHANGE_USER', payload: convs[idx].userInfo })
               }
               return conv
             })
