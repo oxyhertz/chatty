@@ -190,6 +190,12 @@ export async function sendMsg(text, loggedInUser, chatId, img, toUser) {
   })
 }
 
+export async function updateUserPresence(userId, isOnline) {
+  return await updateDoc(doc(db, 'users', userId), {
+    isOnline,
+  })
+}
+
 export async function addConv(combinedId, loggedInUser, toUser) {
   try {
     const res = await getDoc(doc(db, 'conversations', combinedId))
